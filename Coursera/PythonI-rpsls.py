@@ -1,3 +1,9 @@
+#!/usr/bin/python
+
+# A simple script that compares two Rock-Paper-Scissors-Lizard-Spock throws and determins
+# the winner (or a tie). The computer throw is determined randomly. The player throw is 
+# hard-coded in the test section at the bottom (for now).
+
 import random
 
 # helper functions
