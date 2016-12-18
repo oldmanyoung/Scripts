@@ -20,9 +20,10 @@ actual_guesses = 0
 
 # define the helper functions
 def new_game():
-    ''' Begins a new game, resetting certain global variables '''
-#    print secret_number	# for quick debugging purposes
+    ''' Begins a new game '''
+    global range_top
     reset_globals()
+    print secret_number	# for quick debugging purposes
     print "I'm thinking of a number between 0 and", range_top, ". See if \nyou can guess it. You have", max_guess_calc(range_top), "guesses remaining.\n"
     
 def max_guess_calc(number):
@@ -48,8 +49,8 @@ def is_valid(guess):
 
 def reset_globals():
     '''
-    This resets several of the global variables, which is necessary 
-    to begin a new game after completing an existing one (else the 
+    This resets two of the global variables, which is necessary to
+    begin a new game after completing an existing one (else the 
     secret # stays the same and max_guesses remains at previous, 
     decremented, value).
     '''
@@ -61,9 +62,8 @@ def reset_globals():
     
 def scorecard(actual_guesses):
     '''
-    In the event that the secret number is guessed, this function
-    returns the success message, tailored to the 'proficiency' of 
-    the guesser.
+    Returns a varied congratulatory response based on how many 
+    attmpts it took for player to guess right number.
     '''
     if actual_guesses == max_guesses:
         print "That's my number! In the nick of time too. It took you",actual_guesses,"guesses.\n(Were you nervous?)"
@@ -101,15 +101,16 @@ def range1000():
 def input_guess(guess):
     '''
     The logic is a number of nested conditionals. The outermost first
-    checks to see if the player guess is valid. Next check compares the guess
-    to the secret number and returns an appropriate response. The next
-    conditional checks to see if the guesses have run out.
+    checks to see if the player guess is valid (an integer within
+    game range). Next check compares the guess to the secret number 
+    and returns an appropriate response. The next conditional checks 
+    to see if the guesses have run out.
     '''
     global max_guesses, secret_number, actual_guesses, rem_guesses
     if is_valid(guess):
         guess = int(guess)
         if guess < secret_number:
-            print "You guessed", str(guess),"...too LOW. Guess again!"
+            print "You guessed", str(guess),"which is too LOW...guess again!"
             rem_guesses -= 1
             actual_guesses += 1
             if rem_guesses == 0:
@@ -118,11 +119,11 @@ def input_guess(guess):
             else:	
                 print "You have", str(rem_guesses), "remaining...\n"
         elif guess > secret_number:
-            print "You guessed", str(guess),"...too HIGH. Guess again!"
+            print "You guessed", str(guess),"which is too HIGH...guess again!"
             rem_guesses -= 1
             actual_guesses += 1
             if rem_guesses == 0:
-                print "Doh! That was your last guess! Play again?\n"
+                print "Doh! That was your last guess! Try again?\n"
                 new_game()
             else:	
                 print "You have", str(rem_guesses), "remaining...\n"
